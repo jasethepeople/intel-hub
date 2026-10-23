@@ -1,0 +1,30 @@
+{
+  "mcpServers": {
+    "literature": {
+      "tier": "literature",
+      "command": "uv",
+      "args_list": ["run", "--with", "mcp[cli],httpx", "python", "servers/literature_server.py"]
+    },
+    "vulns": {
+      "tier": "vulns",
+      "command": "uv",
+      "args_list": ["run", "--with", "mcp[cli],httpx", "python", "servers/vuln_server.py"]
+    },
+    "localcode": {
+      "tier": "code",
+      "command": "uv",
+      "args_list": ["run", "--with", "mcp[cli]", "python", "servers/localcode_server.py"],
+      "env": { "CODE_ROOT": "/home/you/code" }
+    },
+    "github": {
+      "tier": "code",
+      "command": "docker",
+      "args_list": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
+                    "ghcr.io/github/github-mcp-server"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}" },
+      "tool": "search_repositories",
+      "tool_args": { "query": "{query}", "perPage": 10 },
+      "health_check": false
+    }
+  }
+}

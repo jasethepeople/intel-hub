@@ -1,0 +1,15 @@
+[Unit]
+Description=Unified Intelligence Hub
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/you/intel-hub
+Environment=PATH=/home/you/.local/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/python3 hub.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
